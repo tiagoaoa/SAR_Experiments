@@ -1,3 +1,7 @@
+#GeoTiff Experiments for heterogeneous computing
+#This first one uses simple opencv methods to find countours in a binarized geotiff image and returns a png for visualization and the coordinates of the potential objects of interest.
+#Author: Tiago A. O. Alves <tiago@ime.uerj.br>
+
 import cv2
 import numpy as np
 import sys

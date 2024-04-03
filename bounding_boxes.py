@@ -6,16 +6,17 @@ import cv2
 import numpy as np
 import sys
 from osgeo import gdal
-from math import sin, cos
 
 
+cos = np.cos
+sin = np.sin
 
 def GetGeoCoordinates(gt, x, y):
     """ receives a GeoTransform and a pair of pixel coordinates
         returns a pair of corresponding latitude and longitude"""
     xm, xs, xr, ym, ys, yr = gt
-    x_rotated = (cos(xr), sin(xr))
-    y_rotated = (-sin(yr), cos(yr))
+    x_rotated = np.array(cos(xr), sin(xr))
+    y_rotated = np.array(-sin(yr), cos(yr))
     x, y = x_rotated + y_rotated
     return (x*xs + xm, y*ys + ym)
 

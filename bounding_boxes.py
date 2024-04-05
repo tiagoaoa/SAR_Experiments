@@ -50,13 +50,14 @@ result = img.copy()
 contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 contours = contours[0] if len(contours) == 2 else contours[1]
 stride = 100
+count = 0
 for cntr in contours:
     x,y,w,h = cv2.boundingRect(cntr)
     #w,h = w+stride, h+stride
     cv2.rectangle(result, (x, y), (x+w, y+h), (0, 0, 255), 2)
     ul_x, ul_y = GetGeoCoordinates(gtransform, x-stride, y-stride)
     dw_x, dw_y = GetGeoCoordinates(gtransform, x+stride, y+stride)
- 
-    print("{} {} {} {}".format(ul_x, ul_y, dw_x, dw_y))
+    count += 1
+    print("{}) {} {} {} {}".format(count, ul_x, ul_y, dw_x, dw_y)) #Print coordinates ready to be used by gdal_translate -projwin <x0> <y0> <x1> <y1> high_res.tif region_grab.tif
 cv2.imwrite('bounding.png',result)      
 
